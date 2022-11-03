@@ -100,6 +100,7 @@ credentials.forEach(({ username, Password, invusername, invPassword }) => {
       let readata=fs.ReadStream("./test/input/importDatanew.csv");
       console.log(readata);
       console.log(readata);
+      console.log(readata);
       // await loginPage.launch();
       // await expect(browser).toHaveTitle('OrangeHRM');
       // await loginPage.HRMlogin(username, Password);
