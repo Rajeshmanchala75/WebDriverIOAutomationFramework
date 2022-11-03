@@ -4,14 +4,14 @@ const commonFn = require('../pageobjects/commonFunctions');
 const pim = require('../pageobjects/pim');
 const importData = require('../pageobjects/dataimport');
 require('../Utility/com');
-
+const CSVRead = require('csv-read')
 const chance = require("chance").Chance();
 let rnd = chance.string({ length: 4, numeric: true });
 require('dotenv').config()
 const fs = require('fs');
 const { Click, type } = require('../pageobjects/commonFunctions');
 const { Clickbtn } = require('../Utility/com');
-
+const { parse } = require("csv-parse");
 let credentials = JSON.parse(fs.readFileSync('test/testData/loginCred.json'))
 credentials.forEach(({ username, Password, invusername, invPassword }) => {
   describe('login functionality', async () => {
@@ -98,10 +98,28 @@ credentials.forEach(({ username, Password, invusername, invPassword }) => {
 
     it.only('click function checking1', async () => {
       let readata=fs.ReadStream("./test/input/importDatanew.csv");
-      console.log(readata);
-      console.log(readata);
-      console.log(readata);
-      console.log(readata);
+      //let filedata=fs.readFile("./test/input/importDatanew.csv");
+      // console.log(filedata);
+      fs.createReadStream("./test/input/importDatanew.csv")
+      //fs.createReadStream("./example.csv")
+  .pipe(parse({ delimiter: ",", from_line: 2 }))
+  .on("data", function (row) {
+    console.log(row);
+  })
+  .on("error", function (error) {
+    console.log(error.message);
+  })
+  .on("end", function () {
+    console.log("finished");
+  });
+      //  fs.readFile('./test/input/importDatanew.csv', (err, data) => {
+      //   if (err) throw err;
+      //   console.log(data);
+      // });
+      // const csvread= CSVRead.load('./test/input/importDatanew.csv',{delimiter:';'});
+      //  console.log(csvread);
+      // console.log(readata);
+      // console.log(readata);
       // await loginPage.launch();
       // await expect(browser).toHaveTitle('OrangeHRM');
       // await loginPage.HRMlogin(username, Password);

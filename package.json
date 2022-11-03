@@ -22,12 +22,13 @@
         "GenerateReport": "allure generate allure-results --clean && allure open",
         "GR": "allure generate --clean && allure open",
         "test": "wdio run wdio.conf.js --spec test.js",
-        "AlrReportClean":"allure generate --clean --output C:/FinPayWDIOAutomation/allure-report"
-
+        "AlrReportClean": "allure generate --clean --output C:/FinPayWDIOAutomation/allure-report"
     },
     "dependencies": {
         "chai": "^4.3.6",
         "chance": "^1.1.9",
+        "csv-parse": "^5.3.1",
+        "csv-read": "^2.0.2",
         "dit": "^0.1.0",
         "dotenv": "^16.0.3"
     }
