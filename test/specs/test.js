@@ -112,18 +112,18 @@ credentials.forEach(({ username, Password, invusername, invPassword }) => {
         })
         .on("end", function () {
           console.log("finished");
+
 //Excel file reading
           readXlsxFile(fs.createReadStream(exelpath)).then((rows) => {
             console.log(rows);
-            // `rows` is an array of rows
-            // each row being an array of cells.
+         
 
 //pdf reading 
-new PdfReader().parseFileItems("test/sample.pdf", (err, item) => {
-  if (err) console.error("error:", err);
-  else if (!item) console.warn("end of file");
-  else if (item.text) console.log(item.text);
-});
+// new PdfReader().parseFileItems("test/sample.pdf", (err, item) => {
+//   if (err) console.error("error:", err);
+//   else if (!item) console.warn("end of file");
+//   else if (item.text) console.log(item.text);
+// });
           })
         });
     });

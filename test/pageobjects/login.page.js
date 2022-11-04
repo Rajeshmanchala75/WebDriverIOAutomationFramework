@@ -1,6 +1,5 @@
 
 
-const { type, Click } = require('./commonFunctions');
 const Page = require('./page');
 
 /**
@@ -19,7 +18,7 @@ class LoginPage extends Page {
     }
 
     get btnSubmit () {
-        return $('button[type="submit]');
+        return $('button[type="submit"]');
     }
 
     /**
@@ -27,13 +26,9 @@ class LoginPage extends Page {
      * e.g. to login using username and password
      */
     async login (username, password) {
-        //await this.inputUsername.setValue(username);
-       // await this.inputPassword.setValue(password);
-        //await this.btnSubmit.click();
-        await type(await this.inputUsername,username);
-        await type(await this.inputPassword,password);
-        await Click(await this.btnSubmit);
-        
+        await this.inputUsername.setValue(username);
+        await this.inputPassword.setValue(password);
+        await this.btnSubmit.click();
     }
 
     /**
@@ -41,9 +36,6 @@ class LoginPage extends Page {
      */
     open () {
         return super.open('login');
-    }
-    launch(){
-        return super.launch();
     }
 }
 
