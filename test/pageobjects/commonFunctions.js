@@ -42,10 +42,12 @@ class commonFunctions {
         await browser.$("//div/span[text()='" + dropdownvalue + "']").click();
     }
     async Click(selector) {
-        if (await browser.$(selector).isDisplayed) {
+        try{
+            await  browser.$(selector).waitForDisplayed({timeout:30000})
             await browser.$(selector).click();
         }
-        else {
+        catch(err)
+        {
             console.log("Xpath is not found");
         }
     }
