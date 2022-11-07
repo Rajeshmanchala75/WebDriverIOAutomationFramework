@@ -1,3 +1,10 @@
+const chance = require("chance").Chance();
+let rnd = chance.string({ length: 5, numeric: true });
+const date=new Date();
+let time=date.getHours()+"."+date.getMinutes();
+let mName=date.toLocaleString('en-us',{month:'short'});
+let cDate=date.getDate();
+
 exports.config = {
     //
     // ====================
@@ -110,8 +117,8 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver'],
-    
+    //services: ['chromedriver'],
+     services: ['selenium-standalone'],
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -143,6 +150,11 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000
     },
+    reporters: [['allure', {
+        outputDir: 'allure-results',
+       // disableWebdriverStepsReporting: false,
+        disableWebdriverScreenshotsReporting: false,
+    }]],
     //
     // =====
     // Hooks
@@ -237,8 +249,11 @@ exports.config = {
      * @param {Boolean} result.passed    true if test has passed, otherwise false
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        if(error)
+        await browser.takeScreenshot();
+        await  browser.saveScreenshot(`./test/screenshots/months/${mName}/${cDate}_${time}errorScreenshot.png`);
+     },
 
 
     /**

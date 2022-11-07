@@ -18,7 +18,7 @@ class LoginPage extends Page {
     }
 
     get btnSubmit () {
-        return $('button[type="submit"]');
+        return $('button[type="ubmit"]');
     }
 
     /**
@@ -28,7 +28,7 @@ class LoginPage extends Page {
     async login (username, password) {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
+       // await this.btnSubmit.click();
     }
 
     /**

@@ -9,11 +9,14 @@ const chance = require("chance").Chance();
 let rnd = chance.string({ length: 4, numeric: true });
 require('dotenv').config()
 const fs = require('fs');
+
 const { Click, type } = require('../pageobjects/commonFunctions');
+
 const { Clickbtn } = require('../Utility/com');
 const { parse } = require("csv-parse");
 const readXlsxFile = require('read-excel-file/node');
 const { PdfReader } = require("pdfreader");
+const readTextFile = require('read-text-file');
 let credentials = JSON.parse(fs.readFileSync('test/testData/loginCred.json'))
 credentials.forEach(({ username, Password, invusername, invPassword }) => {
   describe('login functionality', async () => {
@@ -98,10 +101,12 @@ credentials.forEach(({ username, Password, invusername, invPassword }) => {
       await logoutPage.HRMlogout();
     });
 
-    it.only('click function checking1', async () => {
-      let csvfilepath='./test/input/importDatanew.csv';
-      let exelpath='./test/input/empdatanew.xlsx';
-//csv file reading
+    it.only('files reading', async () => {
+      let csvfilepath = './test/input/importDatanew.csv';
+      let exelpath = './test/input/empdatanew.xlsx';
+      let pdfpath = './test/input/FinPayWebDriverAutomationTesting.pdf';
+let textpath='./test/input/wdiodoc.txt';
+      //csv file reading
       fs.createReadStream(csvfilepath)
         .pipe(parse({ delimiter: ",", from_line: 1 }))
         .on("data", function (row) {
@@ -113,17 +118,19 @@ credentials.forEach(({ username, Password, invusername, invPassword }) => {
         .on("end", function () {
           console.log("finished");
 
-//Excel file reading
+          //Excel file reading
           readXlsxFile(fs.createReadStream(exelpath)).then((rows) => {
             console.log(rows);
-         
 
-//pdf reading 
-// new PdfReader().parseFileItems("test/sample.pdf", (err, item) => {
-//   if (err) console.error("error:", err);
-//   else if (!item) console.warn("end of file");
-//   else if (item.text) console.log(item.text);
-// });
+            // pdf reading 
+            new PdfReader().parseFileItems(pdfpath, (error, item) => {
+              if (item && item.text)
+                console.log(item.text);
+                //text file reading
+            });
+            var readtext =  readTextFile.readSync(textpath);
+                console.log(readtext);
+
           })
         });
     });

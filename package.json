@@ -14,6 +14,7 @@
         "@wdio/selenium-standalone-service": "^7.25.1",
         "@wdio/spec-reporter": "^7.25.4",
         "chromedriver": "^107.0.3",
+        "rimraf": "^3.0.2",
         "selenium-standalone": "^8.2.2",
         "wdio-chromedriver-service": "^8.0.0"
     },
@@ -22,9 +23,11 @@
         "GenerateReport": "allure generate allure-results --clean && allure open",
         "GR": "allure generate --clean && allure open",
         "test": "wdio run wdio.conf.js --spec test.js",
-        "AlrReportClean": "allure generate --clean --output C:/FinPayWDIOAutomation/allure-report"
+        "AlrReportClean": "allure generate --clean --output C:/FinPayWDIOAutomation/allure-report",
+        "pretest": "rimraf allure-results && rimraf allure-report && rimraf test-screenshots && rimraf wdio-logs"
     },
     "dependencies": {
+        "allure-commandline": "^2.18.1",
         "chai": "^4.3.6",
         "chance": "^1.1.9",
         "csv-parse": "^5.3.1",
@@ -33,6 +36,7 @@
         "dotenv": "^16.0.3",
         "pdfreader": "^2.0.0",
         "read-excel-file": "^5.5.3",
+        "read-text-file": "^1.1.0",
         "selenium-webdriver": "^4.6.0"
     }
 }

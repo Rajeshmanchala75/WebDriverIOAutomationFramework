@@ -42,24 +42,37 @@ class commonFunctions {
         await browser.$("//div/span[text()='" + dropdownvalue + "']").click();
     }
     async Click(selector) {
-        try{
-            await  browser.$(selector).waitForDisplayed({timeout:30000})
+        try {
+            await browser.$(selector).waitForDisplayed({ timeout: 30000 })
             await browser.$(selector).click();
         }
-        catch(err)
-        {
-            console.log("Xpath is not found");
+        catch (error) {
+            console.log("Xpath is not found" + error);
+
         }
     }
 
     async type(selector, value) {
-        await browser.$(selector).setValue(value);
+        try {
+            await browser.$(selector).waitForDisplayed({ timeout: 30000 })
+            await browser.$(selector).setValue(value);
+        }
+        catch (error) {
+            console.log('x path is  not found' + error);
+
+        }
     }
 
     async waitForElement(selector, waitTime) {
-        await browser.$(selector).waitForDisplayed({ timeout: waitTime });
+        try {
+            await browser.$(selector).waitForDisplayed({ timeout: waitTime });
+        }
+        catch (error) {
+            console.log('element is nod displayed ' + error);
+        }
     }
 }
+
 module.exports = new commonFunctions();
 
 

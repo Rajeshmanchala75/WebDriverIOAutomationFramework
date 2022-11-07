@@ -1,0 +1,26 @@
+read x file
+npm i read-excel-file
+readXlsxFile(fs.createReadStream(exelpath)).then((rows) => {
+            console.log(rows);
+csv file read
+npm i csv-parse   
+const { parse } = require("csv-parse");
+const readXlsxFile = require('read-excel-file/node');
+ fs.createReadStream(csvfilepath)
+        .pipe(parse({ delimiter: ",", from_line: 1 }))
+        .on("data", function (row) {
+          console.log(row);
+        })
+        .on("error", function (error) {
+          console.log(error.message);
+        })
+        .on("end", function () {
+          console.log("finished");
+
+pdf file read
+const { PdfReader } = require("pdfreader");
+new PdfReader().parseFileItems("test/sample.pdf", (err, item) => {
+  if (err) console.error("error:", err);
+  else if (!item) console.warn("end of file");
+  else if (item.text) console.log(item.text);
+});
